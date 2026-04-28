@@ -49,7 +49,9 @@ MIT
 
 ---
 
-**作者**：[豆子狐狸 🦊 douzifox](https://github.com/douzifox)
-**合作开发**：Claude（小克 🐾）
+## 作者
 
-整个项目从算法到 UI 由小狐狸主导设计 + 调优，小克写代码 + 抓 bug。一起从最早一个"绒球缺像素"的吐槽，迭代成现在这个完整的 PWA 工具。
+[豆子狐狸 🦊 douzifox](https://github.com/douzifox) × Claude（小克 🐾）共同开发
+
+- **小狐狸**：产品方向、UX 判断、视觉调优、需求拍板
+- **小克**：算法选型 + 实现（SLIC、deltaE2000、RGB 桶 mode、GCD detect、flood fill）、TypeScript / React 代码、bug 排查、部署 PWA
