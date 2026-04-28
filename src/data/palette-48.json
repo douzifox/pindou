@@ -1,0 +1,291 @@
+[
+  {
+    "code": "B3",
+    "hex": "#7CEE9D",
+    "family": "B",
+    "group": 1
+  },
+  {
+    "code": "C3",
+    "hex": "#A0E2FB",
+    "family": "C",
+    "group": 1
+  },
+  {
+    "code": "D9",
+    "hex": "#D5B9F8",
+    "family": "D",
+    "group": 1
+  },
+  {
+    "code": "E2",
+    "hex": "#FECDDF",
+    "family": "E",
+    "group": 1
+  },
+  {
+    "code": "G1",
+    "hex": "#FFE2CE",
+    "family": "G",
+    "group": 1
+  },
+  {
+    "code": "A4",
+    "hex": "#FFE952",
+    "family": "A",
+    "group": 1
+  },
+  {
+    "code": "B5",
+    "hex": "#00BD35",
+    "family": "B",
+    "group": 1
+  },
+  {
+    "code": "C5",
+    "hex": "#01ACEB",
+    "family": "C",
+    "group": 1
+  },
+  {
+    "code": "D6",
+    "hex": "#AC7BDE",
+    "family": "D",
+    "group": 1
+  },
+  {
+    "code": "E4",
+    "hex": "#E8649E",
+    "family": "E",
+    "group": 1
+  },
+  {
+    "code": "G5",
+    "hex": "#ED9435",
+    "family": "G",
+    "group": 1
+  },
+  {
+    "code": "A6",
+    "hex": "#FDAD4A",
+    "family": "A",
+    "group": 1
+  },
+  {
+    "code": "B8",
+    "hex": "#009D26",
+    "family": "B",
+    "group": 1
+  },
+  {
+    "code": "C8",
+    "hex": "#0F54C0",
+    "family": "C",
+    "group": 1
+  },
+  {
+    "code": "D7",
+    "hex": "#6E399A",
+    "family": "D",
+    "group": 1
+  },
+  {
+    "code": "F5",
+    "hex": "#D80028",
+    "family": "F",
+    "group": 1
+  },
+  {
+    "code": "G7",
+    "hex": "#9D5B3E",
+    "family": "G",
+    "group": 1
+  },
+  {
+    "code": "A7",
+    "hex": "#FF7C30",
+    "family": "A",
+    "group": 1
+  },
+  {
+    "code": "H1",
+    "hex": "#E2E2E2",
+    "family": "H",
+    "group": 1,
+    "auto": false
+  },
+  {
+    "code": "H2",
+    "hex": "#FFFFFF",
+    "family": "H",
+    "group": 1
+  },
+  {
+    "code": "H3",
+    "hex": "#B3B3B3",
+    "family": "H",
+    "group": 1
+  },
+  {
+    "code": "H4",
+    "hex": "#868686",
+    "family": "H",
+    "group": 1
+  },
+  {
+    "code": "H5",
+    "hex": "#474747",
+    "family": "H",
+    "group": 1
+  },
+  {
+    "code": "H7",
+    "hex": "#000000",
+    "family": "H",
+    "group": 1
+  },
+  {
+    "code": "C2",
+    "hex": "#BBF9F6",
+    "family": "C",
+    "group": 2
+  },
+  {
+    "code": "C13",
+    "hex": "#CDE8FF",
+    "family": "C",
+    "group": 2
+  },
+  {
+    "code": "D19",
+    "hex": "#D8C3D7",
+    "family": "D",
+    "group": 2
+  },
+  {
+    "code": "E8",
+    "hex": "#FFDBE9",
+    "family": "E",
+    "group": 2
+  },
+  {
+    "code": "A13",
+    "hex": "#FFBB59",
+    "family": "A",
+    "group": 2
+  },
+  {
+    "code": "A11",
+    "hex": "#FFDD99",
+    "family": "A",
+    "group": 2
+  },
+  {
+    "code": "C10",
+    "hex": "#3EBCE2",
+    "family": "C",
+    "group": 2
+  },
+  {
+    "code": "C6",
+    "hex": "#50AAF0",
+    "family": "C",
+    "group": 2
+  },
+  {
+    "code": "D18",
+    "hex": "#A45EC7",
+    "family": "D",
+    "group": 2
+  },
+  {
+    "code": "E3",
+    "hex": "#FF97C3",
+    "family": "E",
+    "group": 2
+  },
+  {
+    "code": "A10",
+    "hex": "#FF9D55",
+    "family": "A",
+    "group": 2
+  },
+  {
+    "code": "G9",
+    "hex": "#E6B483",
+    "family": "G",
+    "group": 2
+  },
+  {
+    "code": "C11",
+    "hex": "#04B9B9",
+    "family": "C",
+    "group": 2
+  },
+  {
+    "code": "C7",
+    "hex": "#0088D3",
+    "family": "C",
+    "group": 2
+  },
+  {
+    "code": "D21",
+    "hex": "#9A009B",
+    "family": "D",
+    "group": 2
+  },
+  {
+    "code": "D13",
+    "hex": "#B90095",
+    "family": "D",
+    "group": 2
+  },
+  {
+    "code": "F13",
+    "hex": "#DD422F",
+    "family": "F",
+    "group": 2
+  },
+  {
+    "code": "G13",
+    "hex": "#B7714A",
+    "family": "G",
+    "group": 2
+  },
+  {
+    "code": "B12",
+    "hex": "#166F41",
+    "family": "B",
+    "group": 2
+  },
+  {
+    "code": "D3",
+    "hex": "#2F54AF",
+    "family": "D",
+    "group": 2
+  },
+  {
+    "code": "D15",
+    "hex": "#2F1F90",
+    "family": "D",
+    "group": 2
+  },
+  {
+    "code": "E7",
+    "hex": "#C63478",
+    "family": "E",
+    "group": 2
+  },
+  {
+    "code": "F8",
+    "hex": "#BC0028",
+    "family": "F",
+    "group": 2
+  },
+  {
+    "code": "G8",
+    "hex": "#592A21",
+    "family": "G",
+    "group": 2
+  }
+]

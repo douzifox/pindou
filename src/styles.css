@@ -1,0 +1,410 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color-scheme: light;
+  --bg: #fffaf2;
+  --canvas-bg: #faf3e7;
+  --grid-line: #e6dccb;
+  --accent: #ff6b9d;
+  --text: #2a2a2a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* 整页绝不滚动 */
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+button {
+  font: inherit;
+}
+
+.editor {
+  display: grid;
+  height: 100dvh;
+  padding: 12px;
+  /* 避开 iPhone 刘海 / home indicator 安全区域 */
+  padding-top: max(12px, env(safe-area-inset-top));
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  gap: 12px;
+  overflow: hidden;
+}
+
+/* grid item 默认 min-height: auto 会撑破 grid，强制 0 让内容服从 grid 行高 */
+.canvas,
+.palette {
+  min-height: 0;
+  min-width: 0;
+}
+
+.canvas {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 12px;
+  min-height: 0;
+  min-width: 0;
+}
+
+.canvas-frame {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  min-width: 0;
+  position: relative;
+  container-type: size;
+}
+
+.busy-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 250, 242, 0.8);
+  font-size: 18px;
+  font-weight: 600;
+  color: #666;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
+.grid {
+  display: grid;
+  width: min(100cqw, 100cqh);
+  aspect-ratio: 1;
+  background: var(--grid-line);
+  gap: 1px;
+  padding: 1px;
+  border-radius: 8px;
+  touch-action: none;
+  user-select: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.cell {
+  background: var(--canvas-bg);
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+/* 桌面端：换行点不显示，所有按钮一行 */
+.toolbar-break {
+  display: none;
+  flex-basis: 100%;
+  height: 0;
+}
+
+/* 手机端：在第 3 个按钮后强制换行，前 3 后 4 */
+@media (max-width: 600px) {
+  .toolbar-break {
+    display: block;
+  }
+}
+
+.toolbar button {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  border: 0;
+  background: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.toolbar button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.size-slider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.size-slider input[type="range"] {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--accent);
+}
+
+.size-slider .size-label {
+  color: #666;
+  white-space: nowrap;
+}
+
+.size-slider .size-number {
+  width: 48px;
+  padding: 4px 6px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: right;
+  /* 隐藏 webkit 的上下箭头 */
+  -moz-appearance: textfield;
+}
+.size-slider .size-number::-webkit-outer-spin-button,
+.size-slider .size-number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.size-slider .size-suffix {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.palette {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(6, 1fr);
+}
+.palette[data-size="48"] {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.palette-size-toggle {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #f0e8d8;
+  border-radius: 12px;
+  grid-column: 1 / -1;
+}
+
+.palette-size-toggle button {
+  flex: 1;
+  padding: 8px 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.palette-size-toggle button.active {
+  background: #fff;
+  color: var(--accent);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.swatch {
+  border: 3px solid transparent;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  transition: transform 0.05s ease, border-color 0.1s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.swatch:active {
+  transform: scale(0.94);
+}
+
+.swatch.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px #fff inset;
+}
+
+.swatch.eraser {
+  background: repeating-conic-gradient(#eee 0 25%, #fff 0 50%) 0 0/16px 16px;
+  color: #666;
+  text-shadow: none;
+}
+
+/* 暂存槽：占调色板整行；内部用跟 24 色 swatch 一样的列数让 slot 大小一致 */
+.slots-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 手机 24 色 6 列：slot 宽 = 24 色 swatch 宽 */
+  gap: 8px;
+  margin-top: 4px;
+}
+.slots-row .slot {
+  aspect-ratio: 1;
+}
+
+/* iPad 竖屏 24 色 8 列 */
+@media (min-width: 760px) and (orientation: portrait) {
+  .slots-row {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+/* 横屏 24 色 4 列 */
+@media (orientation: landscape) {
+  .slots-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 暂存槽 */
+.slot {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.slot.empty {
+  border: 2px dashed #d4c8b6;
+  background: rgba(255, 255, 255, 0.4);
+  font-size: 28px;
+  color: #b8a98e;
+  font-weight: 300;
+}
+
+.slot.empty:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.slot.empty:not(:disabled):active {
+  transform: scale(0.94);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.slot.filled {
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  overflow: visible;
+}
+
+.slot-load {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 4px;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.slot-load img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.slot-load:active {
+  transform: scale(0.94);
+}
+
+.slot-delete {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: #ff6b6b;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.slot-delete:active {
+  transform: scale(0.85);
+}
+
+
+/* 竖屏（手机或 iPad）：画板在上、色卡在下 */
+@media (orientation: portrait) {
+  .editor {
+    /* canvas 弹性占剩余、palette 占内容自然高度，整体严格 100dvh 不溢出 */
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+}
+
+/* 手机竖屏：24 色 6×4 / 48 色 8×6（默认 .palette base 已经是这个布局） */
+@media (max-width: 759px) and (orientation: portrait) {
+  .palette[data-size="48"] .swatch {
+    font-size: 10px;
+  }
+}
+
+/* iPad 竖屏（宽屏 portrait）：24 色 8×3 / 48 色 12×4 */
+@media (min-width: 760px) and (orientation: portrait) {
+  .palette {
+    grid-template-columns: repeat(8, 1fr);
+  }
+  .palette[data-size="48"] {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+/* 横屏：色卡侧边栏，24 色 4×6、48 色 6×8 */
+@media (orientation: landscape) {
+  .editor {
+    grid-template-columns: 1fr 320px;
+  }
+  .palette {
+    grid-template-columns: repeat(4, 1fr);
+    align-content: start;
+    /* 装不下时允许 palette 内部滚动，但隐藏 scrollbar 视觉干净 */
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .palette::-webkit-scrollbar {
+    display: none;
+  }
+  .palette[data-size="48"] {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
